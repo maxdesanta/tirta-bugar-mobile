@@ -1,11 +1,9 @@
-export const checkIdPacket = ({ duration,namePacket }) => {
-    if (duration === "1" && namePacket === "regullar") {
+export const checkIdPacket = ({ duration }) => {
+    if (duration === "1") {
         return 1;
-    } else if (duration === "2" && namePacket === "regullar") {
+    } else if (duration === "2") {
         return 2;
-    } else if (duration === "3" && namePacket === "regullar") {
+    } else if (duration === "3") {
         return 3;
-    } else if (duration === "4" && namePacket === "regullar") {
-        return 4;
     }
 }

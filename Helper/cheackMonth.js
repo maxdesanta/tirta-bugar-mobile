@@ -1,13 +1,11 @@
 export const checkMonth = (month) => {
     switch (month) {
-        case "1 bulan":
+        case "8x Pertemuan":
             return "1";
-        case "3 bulan":
+        case "1 Bulan":
             return "2";
-        case "6 bulan":
+        case "3 Bulan":
             return "3";
-        case "12 bulan":
-            return "4";
         default:
             return "Mana ada";
     }

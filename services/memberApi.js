@@ -27,9 +27,9 @@ export const detailMemberApi = async ({ id }) => {
 }
 
 // manambahkan data member
-export const addMemberApi = async({name,codeMember,phoneNumber,expired,duration,namePacket}) => {
+export const addMemberApi = async({name,codeMember,phoneNumber,expired,duration,noKwitansi}) => {
     try {
-        const check = await checkIdPacket({ duration, namePacket });
+        const check = await checkIdPacket({ duration });
         const converDate = moment(expired).format('YYYY-MM-DD');
 
         const response = await api.post('/member/add', {
@@ -38,6 +38,7 @@ export const addMemberApi = async({name,codeMember,phoneNumber,expired,duration,
             nomor_telepon: phoneNumber,
             masa_berlaku:  converDate,
             id_member: check,
+            no_kwitansi: noKwitansi
         });
 
         return response.data.message;

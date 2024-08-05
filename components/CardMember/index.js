@@ -3,7 +3,7 @@ import { converDate } from "../../Helper/converDate";
 import { customFont } from "../../Helper/customFont";
 import cardMemberStyle from "./style";
 
-export default function CardMember({ kode, nama, paket, durasi, masaBerlaku, nomorTelp, eventEdit, eventDel }) {
+export default function CardMember({ kode, nama, paket, durasi, masaBerlaku, nomorTelp, eventDetail, eventDel, keterangan, kwitansi}) {
     const font = customFont();
 
     if (!font) {
@@ -22,6 +22,8 @@ export default function CardMember({ kode, nama, paket, durasi, masaBerlaku, nom
                 <Text style={styles.boldFont}>Paket</Text>
                 <Text style={styles.boldFont}>Durasi</Text>
                 <Text style={styles.boldFont}>Masa Berlaku</Text>
+                <Text style={styles.boldFont}>Keterangan</Text>
+                <Text style={styles.boldFont}>No Kwitansi</Text>  
             </View>
             <View style={styles.containerSpace}>
                 <Text style={styles.endText}>{nama}</Text>
@@ -29,11 +31,13 @@ export default function CardMember({ kode, nama, paket, durasi, masaBerlaku, nom
                 <Text style={styles.endText}>{paket}</Text>
                 <Text style={styles.endText}>{durasi}</Text>
                 <Text style={styles.endText}>{converDate(masaBerlaku)}</Text>
+                <Text style={styles.endText}>{keterangan}</Text>
+                <Text style={styles.endText}>{kwitansi}</Text>
             </View>  
         </View>
         <View style={styles.container3}>
-            <Pressable style={styles.buttonEdit} onPress={eventEdit}>
-                <Text style={styles.btnText}>Edit</Text>
+            <Pressable style={styles.buttonEdit} onPress={eventDetail}>
+                <Text style={styles.btnText}>Detail</Text>
             </Pressable>
             <Pressable style={styles.buttonDelete} onPress={eventDel}>
                 <Text style={styles.btnText}>Delete</Text>

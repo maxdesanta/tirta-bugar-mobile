@@ -7,7 +7,7 @@ const addStyle = {
 
     addHeadingText: {
         fontSize: 18,
-        fontFamily: 'robotoB',
+        fontFamily: 'RobotoB',
         marginBottom: 50,
     },
 

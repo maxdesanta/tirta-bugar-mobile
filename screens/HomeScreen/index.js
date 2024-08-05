@@ -41,12 +41,12 @@ export default function HomeScreen({ navigation }) {
         {searchM === '' ? (
           <View style={styles.spacing}>
             {isGetMember.map(data => (
-              <CardMember kode={data.kode_member} nama={data.nama} paket={data.nama_paket} durasi={data.durasi} masaBerlaku={data.masa_berlaku} nomorTelp={data.nomor_telepon} eventEdit={() => navigation.navigate('Edit', {memberId: data.id})} eventDel={() => deleteMemberClick(data.id)} />  
+              <CardMember kode={data.kode_member} nama={data.nama} paket={data.nama_paket} durasi={data.durasi} masaBerlaku={data.masa_berlaku} nomorTelp={data.nomor_telepon} eventDetail={() => navigation.navigate('Detail', {memberId: data.id})} eventDel={() => deleteMemberClick(data.id)} keterangan={data.keterangan} kwitansi={data.no_kwitansi} />  
             ))} 
           </View>
         ) : (
           <View style={styles.spacing}>
-            {isSearchMember.map(data => (
+            {isSearchMember.map(data => (  
               <CardMember kode={data.kode_member} nama={data.nama} paket={data.nama_paket} durasi={data.durasi} masaBerlaku={data.masa_berlaku} nomorTelp={data.nomor_telepon} eventEdit={() => navigation.navigate('Edit', {memberId: data.id})} eventDel={() => deleteMemberClick(data.id)} />  
             ))} 
           </View>

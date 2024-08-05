@@ -25,9 +25,9 @@ export const detailMemberAction = createAsyncThunk('member/detail', async({id}) 
 })
 
 // manambahkan data member
-export const addMemberAction = createAsyncThunk('member/post', async({name,codeMember,phoneNumber,expired,duration,namePacket}) => {
+export const addMemberAction = createAsyncThunk('member/post', async({name,codeMember,phoneNumber,expired,duration,noKwitansi}) => {
     try {
-        const resApi = await addMemberApi({name,codeMember,phoneNumber,expired,duration,namePacket});
+        const resApi = await addMemberApi({name,codeMember,phoneNumber,expired,duration,noKwitansi});
         return resApi;
     } catch (err) {
         console.log(err.message);

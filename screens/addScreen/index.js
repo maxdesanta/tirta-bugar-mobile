@@ -15,9 +15,9 @@ export default function AddScreen({ navigation }) {
   // set usestate form
   const [name, setName] = useState("");
   const [codeMember, setCodeMember] = useState("");
-  const [namePacket, setNamePacket] = useState("");
   const [duration, setDuration] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [noKwitansi, setNoKwitansi] = useState("");
   const [expired, setExpired] = useState(new Date());
   const [pilihDate, setPilihDate] = useState(null);
   const { isAddMember } = useSelector(state => state.member);
@@ -29,13 +29,14 @@ export default function AddScreen({ navigation }) {
   // member handle
   const memberHandle = async() => {
     try {
-      await dispatch(addMemberAction({ name, codeMember, phoneNumber, expired, duration, namePacket }));
+      await dispatch(addMemberAction({ name, codeMember, phoneNumber, expired, duration, noKwitansi }));
       dispatch(getMemberAction());
       setName("");
       setCodeMember("");
       setDuration(null);
       setNamePacket("");
       setPhoneNumber("");
+      setNoKwitansi("");
       setExpired(new Date());
       navigation.navigate("Dashboard");
     } catch (err) {
@@ -57,12 +58,12 @@ export default function AddScreen({ navigation }) {
           <InputForm label="Kode Member" valueInput={codeMember} onChange={text => setCodeMember(text)} />
         </View>
         <View style={styles.containerForm}>
-          <InputForm label="Paket" valueInput={namePacket} onChange={text => setNamePacket(text)} />
           <InputForm label="Durasi" valueDrop={duration} setValueDrop={setDuration} />
+          <InputForm label="No Telepon" valueInput={phoneNumber} onChange={text => setPhoneNumber(text)} />
         </View>
         <View style={styles.containerForm}>
-          <InputForm label="No Telepon" valueInput={phoneNumber} onChange={text => setPhoneNumber(text)} />
           <InputForm label="Masa Berlaku" valueDate={expired} setValueDate={setExpired} chooseDate={pilihDate} setChooseDate={setPilihDate} />
+          <InputForm label="No Kwitansi" valueInput={noKwitansi} onChange={text => setNoKwitansi(text)} />
         </View>
         <TouchableOpacity style={styles.buttonForm} onPress={memberHandle}>
           <Text style={styles.textButton}>Tambah</Text>

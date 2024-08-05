@@ -4,10 +4,9 @@ import { Dropdown } from 'react-native-element-dropdown';
 import dropDownMenuStyle from './style';
 
 const data = [
-{ label: '1 Bulan', value: '1' },
-{ label: '3 Bulan', value: '2' },
-{ label: '6 Bulan', value: '3' },
-{ label: '12 Bulan', value: '4' },
+{ label: '8x Pertemuan', value: '1' },
+{ label: '1 Bulan', value: '2' },
+{ label: '3 Bulan', value: '3' },
 ];
 
 export default function DropdownMenu({ value, setValue }) {

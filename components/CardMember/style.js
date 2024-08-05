@@ -26,7 +26,7 @@ const cardMemberStyle = {
     },
 
     boldFont: {
-        fontFamily: 'robotoB'
+        fontFamily: 'RobotoB'
     },
 
     endText: {

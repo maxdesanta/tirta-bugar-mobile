@@ -12,6 +12,7 @@ const packetStyle = {
     },
     textHead: {
         color: "white",
+        justifyContent: 'center'
     },
     tableBody: {
         backgroundColor: '#FAEDF0',
