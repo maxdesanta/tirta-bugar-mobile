@@ -38,7 +38,7 @@ export default function PacketScreen() {
         </View>
 
         {/* table body */}
-        {isGetPacket.map((data, index) => (
+        {isGetPacket ? isGetPacket.map((data, index) => (
             <View style={styles.tableBody}>
               <View style={{ width: '10%'}}>
                   <Text>{index + 1}</Text>
@@ -56,7 +56,7 @@ export default function PacketScreen() {
                   <Text>{data.keterangan}</Text>
               </View>
           </View>
-        ))} 
+        )) : null} 
       </View>
     </View>
   )

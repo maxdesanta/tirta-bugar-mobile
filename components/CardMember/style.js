@@ -9,6 +9,12 @@ const cardMemberStyle = {
         paddingVertical: 5,
     },
 
+    headingDangerTitleBg: {
+        backgroundColor: "#B30031",
+        alignItems: "center",
+        paddingVertical: 5,
+    },
+
     headingCard: {
         fontFamily: 'RobotoM',
         color: "white"

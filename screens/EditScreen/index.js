@@ -19,12 +19,12 @@ export default function EditScreen({navigation, route}) {
     // set usestate form
     const [name, setName] = useState("");
     const [codeMember, setCodeMember] = useState("");
-    const [namePacket, setNamePacket] = useState("");
     const [duration, setDuration] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [expired, setExpired] = useState(new Date());
     const [pilihDate, setPilihDate] = useState(null);
     const [detailMember, setDetailMember] = useState(null);
+    const [noKwitansi, setNoKwitansi] = useState("");
     const { isEditMember, isDetailMember } = useSelector(state => state.member);
   
     if (!font) {
@@ -34,7 +34,7 @@ export default function EditScreen({navigation, route}) {
     // member handle
     const memberHandle = async() => {
       try {
-        await dispatch(editMemberAction({ name, codeMember, phoneNumber, expired, duration, namePacket, id }));
+        await dispatch(editMemberAction({ name, codeMember, phoneNumber, expired, duration, noKwitansi, id }));
         dispatch(getMemberAction())
         navigation.navigate("Dashboard");
       } catch (err) {
@@ -50,10 +50,15 @@ export default function EditScreen({navigation, route}) {
       if (isDetailMember) {
         setName(isDetailMember.nama);
         setCodeMember(isDetailMember.kode_member);
-        setNamePacket(isDetailMember.nama_paket);
-        setDuration(checkMonth(isDetailMember.durasi));
         setPhoneNumber(isDetailMember.nomor_telepon);
         setDetailMember(isDetailMember.masa_berlaku);
+        setNoKwitansi(isDetailMember.no_kwitansi);
+
+        if (isDetailMember.keterangan === "Bebas Datang") {
+          setDuration(checkMonth(isDetailMember.durasi));
+        } else if (isDetailMember.keterangan === "8x Pertemuan") {
+          setDuration(checkMonth(isDetailMember.keterangan));
+        }
       }
     }, [isDetailMember]);
     
@@ -65,21 +70,21 @@ export default function EditScreen({navigation, route}) {
             <InputForm label="Kode Member" valueInput={codeMember} onChange={text => setCodeMember(text)} />
           </View>
           <View style={styles.containerForm}>
-            <InputForm label="Paket" valueInput={namePacket} onChange={text => setNamePacket(text)} />
             <InputForm label="Durasi" valueDrop={duration} setValueDrop={setDuration} />
+            <InputForm label="No Telepon" valueInput={phoneNumber} onChange={text => setPhoneNumber(text)} />
           </View>
           <View style={styles.containerForm}>
-            <InputForm label="No Telepon" valueInput={phoneNumber} onChange={text => setPhoneNumber(text)} />
             <InputForm label="Masa Berlaku" valueDate={expired} setValueDate={setExpired} chooseDate={pilihDate} setChooseDate={setPilihDate} valueDetail={detailMember} />
-            </View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', gap: 10}}>
-                <TouchableOpacity style={styles.buttonEditForm} onPress={memberHandle}>
-                    <Text style={styles.textButton}>Edit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonCancelForm} onPress={() => navigation.navigate("Dashboard")}>
-                    <Text style={styles.textButton}>Cancel</Text>
-                </TouchableOpacity>
-            </View>
+            <InputForm label="No Kwitansi" valueInput={noKwitansi} onChange={text => setNoKwitansi(text)} />
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', gap: 10}}>
+              <TouchableOpacity style={styles.buttonEditForm} onPress={memberHandle}>
+                  <Text style={styles.textButton}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonCancelForm} onPress={() => navigation.navigate("Dashboard")}>
+                  <Text style={styles.textButton}>Cancel</Text>
+              </TouchableOpacity>
+          </View>
       </View>
     )
 }

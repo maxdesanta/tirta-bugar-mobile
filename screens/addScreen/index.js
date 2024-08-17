@@ -34,7 +34,6 @@ export default function AddScreen({ navigation }) {
       setName("");
       setCodeMember("");
       setDuration(null);
-      setNamePacket("");
       setPhoneNumber("");
       setNoKwitansi("");
       setExpired(new Date());

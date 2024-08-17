@@ -16,7 +16,7 @@ export default function PertemuanData({label, value}) {
                 <Text style={styles.labelBold}>{label}</Text>
                 <Text>:</Text>
             </View>
-            <Text>{value === null ? "-" : converDate(value)}</Text>
+            <Text>{value === null || value === "" || value === "-" ? "-" : converDate(value)}</Text>
         </View>
     )
 }

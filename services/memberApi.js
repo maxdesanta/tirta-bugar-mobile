@@ -17,8 +17,6 @@ export const getMemberApi = async() => {
 export const detailMemberApi = async ({ id }) => {
     try{
         const response = await api.get(`/member/${id}`);
-        console.log(response.data.message);
-
         return response.data.message;
     } catch(err) {
         console.log(err.message);
@@ -53,7 +51,6 @@ export const deleteMemberApi = async({ id }) => {
     try{
         const response = await api.delete(`/member/delete/${id}`);
 
-        console.log(response.data.message);
         return response.data.message;
     } catch (err) {
         console.log(err.message);
@@ -62,9 +59,9 @@ export const deleteMemberApi = async({ id }) => {
 }
 
 // edit data member
-export const editMemberApi = async({name,codeMember,phoneNumber,expired,duration,namePacket,id}) => {
+export const editMemberApi = async({name,codeMember,phoneNumber,expired,duration,noKwitansi,id}) => {
     try {
-        const check = await checkIdPacket({ duration, namePacket });
+        const check = await checkIdPacket({ duration });
         const converDate = moment(expired).format('YYYY-MM-DD');
 
         const response = await api.put(`/member/edit/${id}`, {
@@ -73,6 +70,7 @@ export const editMemberApi = async({name,codeMember,phoneNumber,expired,duration
             nomor_telepon: phoneNumber,
             masa_berlaku:  converDate,
             id_member: check,
+            no_kwitansi: noKwitansi
         });
 
         return response.data.message;

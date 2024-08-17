@@ -50,7 +50,7 @@ const MemberSlice = createSlice({
             })
             .addCase(deleteMemberAction.fulfilled, (state, action) => {
                 state.isDeleteMember = action.payload;
-                state.isGetMember = state.isGetMember.filter(m => m.id_produk !== action.payload);
+                state.isGetMember = state.isGetMember.filter(m => m.id !== action.payload);
                 state.isLoading = false;
             })
             .addCase(deleteMemberAction.rejected, (state, action) => {

@@ -48,9 +48,9 @@ export const deleteMemberAction = createAsyncThunk('member/delete', async ({ id 
 })
 
 // edit data member
-export const editMemberAction = createAsyncThunk('member/edit', async ({ name, codeMember, phoneNumber, expired, duration, namePacket, id }) => {
+export const editMemberAction = createAsyncThunk('member/edit', async ({ name, codeMember, phoneNumber, expired, duration, noKwitansi, id }) => {
     try {
-        const resApi = await editMemberApi({ name, codeMember, phoneNumber, expired, duration, namePacket, id });
+        const resApi = await editMemberApi({ name, codeMember, phoneNumber, expired, duration, noKwitansi, id });
 
         return resApi;
     } catch (err) {

@@ -1,13 +1,14 @@
 // import package
-import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, BackHandler } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { detailMemberAction } from "../../redux/actions/MemberAction";
+import { addMeetAction, getMeetAction, getMeetMemberIdAction } from '../../redux/actions/MeetAction';
 import { customFont } from "../../Helper/customFont";
 
 // import style
 import detailStyle from './style';
-import { converDate } from "../../Helper/converDate";
+
 // import component
 import BioData from '../../components/BioData';
 import PertemuanData from '../../components/PertemuanData';
@@ -15,8 +16,7 @@ import PertemuanData from '../../components/PertemuanData';
 export default function DetailScreen({navigation, route}) {
     const id = route.params.memberId;
     const font = customFont();
-    const dispacth = useDispatch();
-    const [idMember, setIdMember] = useState("");
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [codeMember, setCodeMember] = useState("");
     const [namePacket, setNamePacket] = useState("");
@@ -34,22 +34,71 @@ export default function DetailScreen({navigation, route}) {
     const [p7, setP7] = useState("");
     const [p8, setP8] = useState("");
     const { isDetailMember } = useSelector(state => state.member);
+    const { isAddMeet, isGetMeet, isResetMeet, isEditMeet } = useSelector(state => state.meet);
 
     if (!font) {
         null;
     }
 
     const memberEdit = () => {
-        navigation.navigate("Edit");
+        navigation.navigate("Edit", {memberId: id});
     }
 
+    const pertemuanEdit = async () => {
+        try {
+            const match = isGetMeet.find(data => data.id_member === id);
+
+            if (match) {
+                navigation.navigate("EditMeet", {idPertemuan: id});
+            } else {
+                await dispatch(addMeetAction({ id }));
+                dispatch(getMeetAction());
+                navigation.navigate("EditMeet", {idPertemuan: id});
+            }
+        }
+        catch(err) {
+            console.log(err.message);
+        }
+    }
+
+    const backHandler = useCallback(() => {
+        if (isResetMeet) {
+            setP1("-");
+            setP2("-");
+            setP3("-");
+            setP4("-");
+            setP5("-");
+            setP6("-");
+            setP7("-");
+            setP8("-");
+            
+            Promise.all([
+                dispatch(detailMemberAction({ id })),
+                dispatch(getMeetMemberIdAction({ id }))
+            ]).catch(error => {
+                console.error('Error updating data after reset:', error);
+            });
+            navigation.navigate("Detail", { memberId: id });
+        }
+        return false;  
+    }, [isResetMeet, id, dispatch]);
+
     useEffect(() => {
-        dispacth(detailMemberAction({ id }));
-    }, [dispacth, id]);
+        dispatch(getMeetAction());
+    },[dispatch])
+
+    useEffect(() => {
+        dispatch(detailMemberAction({ id }));
+    }, [dispatch, id]);
+
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backHandler);
+        return () => BackHandler.removeEventListener('hardwareBackPress', backHandler);
+    }, [backHandler]);
 
     useEffect(() => {
         if (isDetailMember) {
-            setIdMember(isDetailMember.id);
             setName(isDetailMember.nama);
             setCodeMember(isDetailMember.kode_member);
             setNamePacket(isDetailMember.nama_paket);
@@ -68,6 +117,36 @@ export default function DetailScreen({navigation, route}) {
             setP8(isDetailMember.x8);
         }
     }, [isDetailMember])
+
+    useEffect(() => {
+        if (isAddMeet) {
+            dispatch(detailMemberAction({ id }));
+            dispatch(getMeetAction());
+        }
+    }, [dispatch, isAddMeet])
+
+    useEffect(() => {
+        if (isEditMeet) {
+            dispatch(detailMemberAction({ id }));
+            dispatch(getMeetAction());
+        }
+    }, [dispatch, isEditMeet])
+
+    useEffect(() => {
+        if (isResetMeet) {
+            dispatch(detailMemberAction({ id }));
+            dispatch(getMeetMemberIdAction({ id }));
+            setP1("-");
+            setP2("-");
+            setP3("-");
+            setP4("-");
+            setP5("-");
+            setP6("-");
+            setP7("-");
+            setP8("-");
+        }
+    }, [dispatch, isResetMeet])
+    
     return (
         <View style={styles.container}>
             <Text style={styles.headingDetail}>Detail Member</Text>
@@ -99,7 +178,7 @@ export default function DetailScreen({navigation, route}) {
                     <TouchableOpacity style={styles.editMemberBtn} onPress={memberEdit}>
                         <Text style={styles.textButton}>Edit</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.editMeetBtn}>
+                    <TouchableOpacity style={styles.editMeetBtn} onPress={pertemuanEdit}>
                         <Text style={styles.textButton}>Edit Pertemuan</Text>
                     </TouchableOpacity>
                 </View>

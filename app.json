@@ -15,21 +15,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      },
+      "bundleIdentifier": "com.expo.tirtabugar"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#161955"
       },
-      "fonts": [
-        "./assets/fonts/Roboto-Regular.otf",
-        "./assets/fonts/Roboto-Medium.otf",
-        "./assets/fonts/Roboto-Black.otf",
-        "./assets/fonts/Roboto-Bold.otf"
-      ],
       "package": "com.expo.tirtabugar",
-      "googleServicesFile": "./android/app/google-services.json"
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -39,7 +37,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "294f13e4-954f-455b-948d-ae1a74937106"
+        "projectId": "3b5c6ff9-6aa9-441a-bfaf-c254c2cde0b3"
       }
     }
   }

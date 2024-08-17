@@ -19,9 +19,10 @@ export default function DatePicker({ dateData, setDateData, selectDate, setSelec
   };
 
   const handleDateConfirm = (e, selectedDate) => {
-    const dateNow = selectedDate; 
-    setDateData(dateNow);
-    setSelectDate(dateNow);  
+    if (selectedDate) {
+      setDateData(selectedDate);
+      setSelectDate(selectedDate);  
+    }
     hideDatePicker();
   };
 
@@ -29,19 +30,27 @@ export default function DatePicker({ dateData, setDateData, selectDate, setSelec
     if (valueNow) {
       setDateData(new Date(valueNow));
       setSelectDate(new Date(valueNow));  
+    } else {
+      setDateData(null);
+      setSelectDate(null);
     }
-  }, [valueNow])
+  }, [valueNow, setDateData, setSelectDate]);
 
   return (
     <View style={styles.dateForm}>
         <TouchableOpacity onPress={() => showDatePicker()}>
             <Text style={styles.text}>
-                {selectDate ? converDate(dateData.toDateString()) : "Select Date"}
+                {selectDate ? converDate(dateData) : "Select Date"}
             </Text>
         </TouchableOpacity>
         <CalenderIcon />  
         {pickerSelect && (
-          <DateTimePicker value={dateData} mode="date" onChange={handleDateConfirm} />
+        <DateTimePicker
+          value={dateData || new Date()}
+          mode="date"
+          display="default"
+          onChange={handleDateConfirm}
+        />
         )}
     </View>
   );

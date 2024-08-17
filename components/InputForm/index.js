@@ -15,7 +15,7 @@ export default function InputForm({label, valueInput, onChange, valueDate, setVa
   return (
     <View style={styles.container}>
       <Text style={styles.labelForm}>{label}</Text>
-      {label === "Masa Berlaku" ? (
+      {label === "Masa Berlaku" || label.startsWith("Pertemuan") ? (
         <DatePicker dateData={valueDate} setDateData={setValueDate} selectDate={chooseDate} setSelectDate={setChooseDate} valueNow={valueDetail} />
       ) : label === "Durasi" ? (
         <DropdownMenu value={valueDrop} setValue={setValueDrop} />
